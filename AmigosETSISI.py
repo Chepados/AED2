@@ -85,11 +85,22 @@ class AmigosETSISI:
 
     #  Apartado 2.2 primer método
     def contarGrupos(self):
+        visitados = self.__red.__iniciavisitados()
+        n_comp = 0
+        for i in range(self.getNumVertices()):
+            if not visitados[i]:
+                self.__red.recorridoenProfundidad(i,visitados)
+                n_comp += 1
+        return n_comp
+
         return 0  #  sustituir y Completar codigo
 
 
         #  Apartado 2.2 Segundo método
     def mostrarAmigos(self, nombre):
+        pos_nombre = devuelvePosNombre(nombre)
+        if pos_nombre:
+
         print() # sustituir y Completar codigo
 
 
