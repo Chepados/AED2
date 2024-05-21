@@ -125,8 +125,7 @@ class AmigosETSISI:
             visitados = self.__iniciavisitados()
             self.__red.recorridoenProfundidad(pos_nombre, visitados)
             miembros_grupo = [i for i,e in enumerate(visitados) if e == True]
-
-            print(f"Los miembros del grupo de {persona1.getNombre()}")
+            print(f"\nLos miembros del grupo de {persona1.getNombre()} son:")
             for m in miembros_grupo:
                 print(self.__contactos[m].getNombre())
         else:

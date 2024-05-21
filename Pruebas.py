@@ -66,19 +66,18 @@ G = nx.Graph()
 for contacto in contactos:
     G.add_node(contacto.getNombre())
 
-fig, ax = plt.subplots(figsize=(1,1))
-nx.draw(G, with_labels=True, ax=ax)
 
 for origen, destino in conexiones:
     G.add_edge(diccionario[origen],diccionario[destino])
 
+
+fig, ax = plt.subplots(figsize=(10,10))
+nx.draw(G, with_labels=True, ax=ax)
+plt.title("Grafo de amistades")
+plt.show()
+
 print(f"Nodos del grafo: {G.nodes}")
 print(f"Ejes del grafo: {G.edges}")
-
-
-
-
-
 
 miRed.mostrarRed()
 
@@ -87,15 +86,16 @@ print("Apartado 2.2.1. Número de grupos")
 print(f"\nHay {miRed.contarGrupos()} grupos")
 print(sep)
 print("Apartado 2.2.2. Mostrar amigos directos")
-print(miRed.mostrarAmigos("Jose"))
+miRed.mostrarAmigos("Jose")
 print(sep)
 a = 10
 b = 14
+
 if miRed.sonDelMismoGrupo(contactos[a], contactos[b]):
     print(f"{contactos[a].getNombre()} es del mismo grupo que {contactos[b].getNombre()}")
 else:
     print(f"{contactos[a].getNombre()} no es del mismo grupo que {contactos[b].getNombre()}")
-
+print(sep)
 print("Apartado 2.2.4. Mostrar amigos mismo Grupo de Amistad")
 
 miRed.mostrarMiembrosGrupo(contactos[10])
