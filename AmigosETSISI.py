@@ -1,5 +1,6 @@
 from Grafos import GrafoMA
 from Persona import Persona
+from copy import deepcopy
 
 class AmigosETSISI:
     def __init__(self, n, contactos):
@@ -34,7 +35,7 @@ class AmigosETSISI:
             visitados.append(False)
         return visitados
 
-    #  encuentra la posición asociada a un nombre de persona en la tabla de contactos que
+    #  encuentra la posición asociada a un nombres.txt de persona en la tabla de contactos que
     #  además se corresponde con el vertice que le representa en el grafo
 
     def devuelvePosNombre(self, nombre):
@@ -85,29 +86,49 @@ class AmigosETSISI:
 
     #  Apartado 2.2 primer método
     def contarGrupos(self):
-        visitados = self.__red.__iniciavisitados()
-        n_comp = 0
-        for i in range(self.getNumVertices()):
+        counter = 0
+        visitados = self.__iniciavisitados()
+        for i in range(self.getNumPersonas()):
             if not visitados[i]:
                 self.__red.recorridoenProfundidad(i,visitados)
-                n_comp += 1
-        return n_comp
-
-        return 0  #  sustituir y Completar codigo
-
+                counter += 1
+        return counter
 
         #  Apartado 2.2 Segundo método
     def mostrarAmigos(self, nombre):
-        pos_nombre = devuelvePosNombre(nombre)
-        if pos_nombre:
+        pos_nombre = self.devuelvePosNombre(nombre)
+        lista_adyacentes = []
+        assert self.getNumPersonas() > pos_nombre > -1 , "El nombre no se encuentra en la base de datos"
+        for i in range(self.getNumPersonas()):
+            if self.existeRelacion(pos_nombre,i):
+                lista_adyacentes.append(i)
 
-        print() # sustituir y Completar codigo
-
+        print(f"Los amigos directos de {nombre} son:")
+        for a in lista_adyacentes:
+            print(self.__contactos[a].getNombre())
 
         #  Apartado 2.2 Tercer método
     def sonDelMismoGrupo(self, persona1, persona2):
-        return False  # sustituir y Completar codigo
+        persona1 = self.devuelvePosNombre(persona1.getNombre())
+        persona2 = self.devuelvePosNombre(persona2.getNombre())
+        if self.__red.verticeEnRango(persona1) and self.__red.verticeEnRango(persona2):
+            visitados = self.__iniciavisitados()
+            self.__red.recorridoenProfundidad(persona1,visitados)
+        return visitados[persona2]
+
+        #comprobar si esta en la tabla de contactos
 
         #  Apartado 2.2 cuarto método
-    def motrarMiembrosGrupo(self, persona1):
-        print()   # sustituir y Completar codigo
+    def mostrarMiembrosGrupo(self, persona1):
+        pos_nombre = self.devuelvePosNombre(persona1.getNombre())
+        if self.__red.verticeEnRango(pos_nombre):
+            visitados = self.__iniciavisitados()
+            self.__red.recorridoenProfundidad(pos_nombre, visitados)
+            miembros_grupo = [i for i,e in enumerate(visitados) if e == True]
+
+            print(f"Los miembros del grupo de {persona1.getNombre()}")
+            for m in miembros_grupo:
+                print(self.__contactos[m].getNombre())
+        else:
+            raise ValueError("La persona introducida no se encuentra en la lista de contactos")
+
