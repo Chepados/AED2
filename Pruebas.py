@@ -84,7 +84,7 @@ for origen, destino in conexiones:
     G.add_edge(diccionario[origen],diccionario[destino])
 
 
-fig, ax = plt.subplots(figsize=(10,10))
+fig, ax = plt.subplots(figsize=(7,7))
 nx.draw(G, with_labels=True, ax=ax)
 plt.title("Grafo de amistades")
 plt.show()
