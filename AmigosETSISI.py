@@ -98,14 +98,16 @@ class AmigosETSISI:
     def mostrarAmigos(self, nombre):
         pos_nombre = self.devuelvePosNombre(nombre)
         lista_adyacentes = []
-        assert self.getNumPersonas() > pos_nombre > -1 , "El nombre no se encuentra en la base de datos"
-        for i in range(self.getNumPersonas()):
-            if self.existeRelacion(pos_nombre,i):
-                lista_adyacentes.append(i)
+        if self.getNumPersonas() > pos_nombre > -1:
+            for i in range(self.getNumPersonas()):
+                if self.existeRelacion(pos_nombre,i):
+                    lista_adyacentes.append(i)
 
-        print(f"Los amigos directos de {nombre} son:")
-        for a in lista_adyacentes:
-            print(self.__contactos[a].getNombre())
+            print(f"Los amigos directos de {nombre} son:")
+            for a in lista_adyacentes:
+                print(self.__contactos[a].getNombre())
+        else:
+            print("El nombre no se encuentra en la base de datos")
 
         #  Apartado 2.2 Tercer método
     def sonDelMismoGrupo(self, persona1, persona2):

@@ -57,10 +57,19 @@ class Generator:
         else:
             raise Exception("Inserte menos relaciones")
 
+    def return_relations(self):
+        conexiones = []
+        max_rel = self.__number_contacts * (self.__number_contacts - 1)
+        if self.__number_relations <= max_rel:
+            for i in range(self.__number_relations):
+                conexiones.append(self.get_combination())
+            return conexiones
+        else:
+            raise Exception("Inserte menos relaciones")
+
 
 
 if __name__ == '__main__':
     gdor = Generator(5,20)
-    print(gdor.__names)
     print(gdor.get_combination())
     print(gdor._combinations)
